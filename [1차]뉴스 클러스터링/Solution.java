@@ -16,27 +16,8 @@ class Solution {
         toSub(map, str1, 0);
         toSub(map, str2, 1);
 
-        List<int[]> values = map.values().stream().collect(Collectors.toList());
-
-
-        if (map.isEmpty()){
-            answer = 1;
-        } else {
-            int minus = 0;
-            int plus = 0;
-
-            for(int[] value: values) {
-                minus += Math.min(value[0], value[1]);
-                plus += Math.max(value[0], value[1]);
-            }
-
-            answer = (int)(minus/(double)plus * 65536);
-        }
+        answer = J(map);
         return answer;
-    }
-
-    public boolean isLetter(char c) {
-        return c - 'a' >= 0 && c - 'a' <= 25;
     }
 
     public void toSub(Map<String, int[]> map, String str, int idx) {
@@ -58,6 +39,31 @@ class Solution {
 
             }
         }
+    }
+
+    public boolean isLetter(char c) {
+        return c - 'a' >= 0 && c - 'a' <= 25;
+    }
+
+    public int J(Map<String, int[]> map){
+        int answer = 0;
+
+        if (map.isEmpty()){
+            answer = 1;
+        } else {
+            List<int[]> values = map.values().stream().collect(Collectors.toList());
+            int minus = 0;
+            int plus = 0;
+
+            for(int[] value: values) {
+                minus += Math.min(value[0], value[1]);
+                plus += Math.max(value[0], value[1]);
+            }
+
+            answer = (int)(minus/(double)plus * 65536);
+        }
+
+        return answer;
     }
 
     public static void main(String[] args) {
