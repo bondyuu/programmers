@@ -27,35 +27,33 @@ class Solution {
         private String tail;
 
         public FileName(String str) {
-            String num = "";
+            String head = "";
+            String number = "";
+            String tail = "";
+
             int idx = 0;
-            for(int i = 0; i < str.toCharArray().length; i++) {
-                char c = str.charAt(i);
-                if (c < '0' || c > '9') {
-                    idx++;
-                } else{
-                    break;
-                }
-
+            for( ; idx < str.length() ; ++idx) {
+                char ch = str.charAt(idx);
+                if(ch >= '0' && ch <= '9') break;
+                head += ch;
             }
-            for(int i = idx; i < str.toCharArray().length; i++) {
-                char c = str.charAt(i);
-                if (c >= '0' && c <= '9') {
-                    num += c;
 
-                } else {
-                    break;
-                }
-
+            for( ; idx < str.length() ; ++idx) {
+                char ch = str.charAt(idx);
+                if(!(ch >= '0' && ch <= '9')) break;
+                number += ch;
             }
+
+            for( ; idx < str.length() ; ++idx) {
+                char ch = str.charAt(idx);
+                tail += ch;
+            }
+
+
 //            System.out.println(num);
-            this.head = str.split(num)[0];
-            this.number = num;
-            if(str.split(num).length ==2){
-                this.tail = str.split(num)[1];
-            } else {
-                this.tail = "";
-            }
+            this.head = head;
+            this.number = number;
+            this.tail = tail;
 
         }
 
